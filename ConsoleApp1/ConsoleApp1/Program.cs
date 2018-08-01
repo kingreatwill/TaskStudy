@@ -7,9 +7,11 @@ namespace ConsoleApp1
         //http://www.cnblogs.com/yaopengfei/p/8178039.html
         private static void Main(string[] args)
         {
+            new ThreadPoolDemo().Test();
+
             var test = new Task_i_plus();
             test.Test();
-
+            new ThreadPoolDemo().Test();
             Console.WriteLine($"input exit!");
             while (Console.ReadLine() != "exit")
             {
