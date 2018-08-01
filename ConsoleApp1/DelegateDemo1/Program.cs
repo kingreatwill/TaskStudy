@@ -7,6 +7,8 @@ namespace DelegateDemo1
     {
         private static void Main(string[] args)
         {
+            new ParallelDemo().RunSimpleParallelTest();
+
             Console.WriteLine($"-----Main-----------{Thread.CurrentThread.ManagedThreadId}-------");
 
             for (var i = 0; i < 10; i++)

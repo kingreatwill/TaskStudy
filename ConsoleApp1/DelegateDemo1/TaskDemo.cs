@@ -12,13 +12,16 @@ namespace DelegateDemo1
 
         //②：ContinueWhenAll：等价于Task的WhenAll+ContinueWith
 
+        //Task.Factory.StartNew比Task.run好
+        // https://blogs.msdn.microsoft.com/pfxteam/2011/10/24/task-run-vs-task-factory-startnew/
+
         //Task实例化的方式，然后调用同步方法RunSynchronously ，进行线程启动。(PS: 类似委托开启线程，BeginInvoke是异步，而Invoke是同步)
         public void Test()
         {
             //TaskFactory
             Task t = new Task(() =>
             {
-                Console.WriteLine($"------new Task----------{Thread.CurrentThread.ManagedThreadId}-------");
+                Console.WriteLine($"------new Task----{Task.CurrentId}------{Thread.CurrentThread.ManagedThreadId}-------");
             });
             t.RunSynchronously();
         }
@@ -28,7 +31,7 @@ namespace DelegateDemo1
             //TaskFactory
             new TaskFactory().StartNew(() =>
             {
-                Console.WriteLine($"------new TaskFactory().StartNew----------{Thread.CurrentThread.ManagedThreadId}-------");
+                Console.WriteLine($"------new TaskFactory().StartNew----{Task.CurrentId}------{Thread.CurrentThread.ManagedThreadId}-------");
             });
         }
 
@@ -37,7 +40,7 @@ namespace DelegateDemo1
             //TaskFactory
             Task.Factory.StartNew(() =>
             {
-                Console.WriteLine($"------Task.Factory.StartNew----------{Thread.CurrentThread.ManagedThreadId}-------");
+                Console.WriteLine($"------Task.Factory.StartNew---{Task.CurrentId}-------{Thread.CurrentThread.ManagedThreadId}-------");
             });
         }
 
@@ -46,7 +49,7 @@ namespace DelegateDemo1
             //TaskFactory
             Task.Run(() =>
             {
-                Console.WriteLine($"------Task.Run----------{Thread.CurrentThread.ManagedThreadId}-------");
+                Console.WriteLine($"------Task.Run-----{Task.CurrentId}-----{Thread.CurrentThread.ManagedThreadId}-------");
             });
         }
 
@@ -62,13 +65,13 @@ namespace DelegateDemo1
         {
             ThreadPool.QueueUserWorkItem((t) =>
             {
-                Console.WriteLine($"-----------ThreadPool-----{Thread.CurrentThread.ManagedThreadId}-------");
+                Console.WriteLine($"-----------ThreadPool----------{Task.CurrentId}---{Thread.CurrentThread.ManagedThreadId}-------");
             });
         }
 
         private void Print()
         {
-            Console.WriteLine($"------Thread----------{Thread.CurrentThread.ManagedThreadId}-------");
+            Console.WriteLine($"------Thread---{Task.CurrentId}-------{Thread.CurrentThread.ManagedThreadId}-------");
         }
     }
 }
