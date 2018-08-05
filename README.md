@@ -2,3 +2,6 @@
 多线程学习
 ThreadLocal
 volatile
+
+ThreadStatic对应java的ThreadLocal
+LocalDataStoreSlot
